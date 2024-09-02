@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .product-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover; 
+        border-radius: 5px;
+        transition: transform 0.3s ease; /* Smooth zoom-in effect */
+    }
+
+    .product-image:hover {
+        transform: scale(1.1); /* Slightly enlarges the image on hover */
+    }
+
+    .btn-shop-now, .btn-outline-primary {
+        margin-top: 10px;
+        border-radius: 25px; /* More modern, rounded corners */
+        transition: all 0.3s ease; 
+        font-weight: 600;
+    }
+
+    .btn-shop-now {
+        background-color: #ff9900;
+        color: #fff;
+    }
+
+    .btn-shop-now:hover {
+        background-color: #e68a00;
+        transform: translateY(-2px);
+    }
+
+    .card-product {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin-bottom: 30px;
+        overflow: hidden;
+    }
+
+    .card-product:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        background-color: #fafafa; /* Slightly lighter background color to emphasize on hover */
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        padding: 5px 10px;
+        background-color: #ff4757; /* More vibrant color */
+    }
+
+    .strike-text {
+        text-decoration: line-through;
+        color: #a5a5a5;
+        margin-left: 8px;
+    }
+
+    .ratings i {
+        color: #FFD700; /* Gold stars for ratings */
+        font-size: 1rem;
+        margin-right: 4px;
+    }
+
+    .para {
+        color: #6c757d;
+        font-size: 0.95rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .bot-border {
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 15px; /* Adding margin for spacing content */
+    }
+</style>
+<div class="container">
+    {% for item in items %}
+    <div class="d-flex justify-content-center row mt-3">
+        <div class="col-md-8">
+            <div class="row align-items-center p-3 border rounded card-product">
+                <div class="col-md-3 bot-border">
+                    <img class="img-fluid product-image" src="{{ item.image.url }}" alt="{{ item.nameitems }}">
+                </div>
+                <div class="col-md-6">
+                    <h5 class="badge bg-danger">{{ item.nameitems }}</h5>
+                    <div class="d-flex flex-row mb-2 align-items-center">
+                        <div class="ratings">
+                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                        </div>
+                        <span class="ms-2">{{ item.price }} SAR</span>
+                    </div>
+                    <p class="para mb-0">{{ item.description }}</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h4 class="mb-1">{{ item.price }} SAR</h4>
+                    <span class="strike-text">{{ item.price }} SAR</span>
+                    <h6 class="text-success mt-2">Free shipping</h6>
+                    <div class="mt-4">
+                        <a href="{% url 'details' item.id %}" class="btn btn-shop-now">Details</a>
+                        <button class="btn btn-outline-primary btn-sm mt-2">Add to Wishlist</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

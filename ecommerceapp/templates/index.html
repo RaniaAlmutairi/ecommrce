@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .card {
+        border: none;
+        overflow: hidden;
+        border-radius: 15px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin: 15px; /* Adjust margin for spacing */
+    }
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .card img {
+        border-radius: 15px 15px 0 0;
+        height: 180px;
+        object-fit: cover;
+    }
+    .card-body {
+        text-align: center;
+        padding: 20px;
+    }
+    .card-img-top {
+            height: 100px; /* Standardize height */
+            width: 50%; /* Full width to span card */
+            border-radius: 15px 15px 0 0;
+            align-items: center;
+        }
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 0;
+    }
+    .btn-shop-now {
+        margin-top: 10px;
+        background-color: #ff9900;
+        border: none;
+        color: #fff;
+        transition: background-color 0.3s;
+        cursor: pointer;
+    }
+    .btn-shop-now:hover {
+        background-color: #e38c00;
+    }
+    .offer-heading {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+</style>
+<div class="container my-5">
+    
+    <h3 class="offer-heading">Special Summer Offers!</h3>
+    <div class="row justify-content-center text-center">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+                <img src="media\images\huawei.png" class="card-img-top" alt="Smartphones" height="50" width="50">
+                <div class="card-body">
+                    <h5 class="card-title">Smartphones</h5>
+                    <button class="btn btn-shop-now">Shop Now</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+                <img src="media\images\t.png" class="card-img-top" alt="Clothing">
+                <div class="card-body">
+                    <h5 class="card-title">Clothing</h5>
+                    <a href="{% url 'items' %}" class="stretched-link btn btn-shop-now">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+                <img src="media\images\sale-removebg-preview.png" class="card-img-top" alt="Sale">
+                <div class="card-body">
+                    <h5 class="card-title">Special Sales</h5>
+                    <button class="btn btn-shop-now">Shop Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+

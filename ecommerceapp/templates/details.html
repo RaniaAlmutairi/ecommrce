@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Link to Google Fonts in the head section of your base.html -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Cairo', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .card-registration {
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card-registration:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .offer-summary {
+        padding: 30px;
+        background: white;
+        border-radius: 15px;
+    }
+
+    h3, .offer-title, .total-price {
+        color: #333; 
+    }
+
+    h1 {
+        font-weight: 600;
+        font-size: 2.5rem; 
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    h5, h6 {
+        color: #495057; 
+        margin-bottom: 10px; 
+    }
+
+    .img-fluid {
+        border-radius: 15px; 
+        height: auto; 
+        max-height: 250px;
+        object-fit: cover; 
+        transition: transform 0.3s; /* Scale effect on hover */
+    }
+
+    .img-fluid:hover {
+        transform: scale(1.05); /* Slight zoom on hover */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+    }
+
+    .quantity-controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .btn {
+        border-radius: 25px; 
+        padding: 12px 20px; 
+        font-weight: 600; 
+        transition: background-color 0.4s, transform 0.3s; 
+        border: none; 
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .btn-danger {
+        background-color: #dc3545; 
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333; 
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-success {
+        background-color: #28a745; 
+        color: white;
+    }
+
+    .btn-success:hover {
+        background-color: #218838; 
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-shop-now {
+        margin-top: 10px;
+        background-color: #ff9900;
+        color: #fff;
+    }
+
+    .btn-shop-now:hover {
+        background-color: #e38c00;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .text-body a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .text-body a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .card-registration {
+            margin: 10px;
+        }
+
+        h1 {
+            font-size: 2rem; /* Responsive font size */
+        }
+
+        .offer-summary {
+            padding: 20px;
+        }
+
+        .quantity-controls {
+            flex-direction: column; /* Stack controls on small screens */
+        }
+    }
+</style>
+
+<section class="h-100 py-5">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration">
+                    <div class="card-body">
+                        <div class="row g-0">
+                            <div class="col-lg-4 offer-summary">
+                                <h3 class="fw-bold mb-5">الفاتورة</h3>
+                                <hr class="my-4">
+                                <div class="d-flex justify-content-between mb-4">
+                                    <h5 class="text-uppercase">{{d.items.nameitems}}</h5>
+                                    <h5>{{d.items.price}} SAR</h5>
+                                </div>
+                                <h5 class="text-uppercase">{{d.items.description}}</h5>
+                                <hr class="my-4">
+                                <div class="d-flex justify-content-between mb-5 total-price">
+                                    <h5 class="text-uppercase">Total Price</h5>
+                                    <h5 class="text-uppercase">{{d.total}} SAR</h5>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="p-5">
+                                    <div class="d-flex justify-content-end align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0">تفاصيل المنتج</h1>
+                                    </div>
+                                    <hr class="my-4">
+                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <div class="col-md-4">
+                                            <img src="{{d.items.image.url}}" class="img-fluid" alt="{{d.items.nameitems}}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6 class="text-muted">Product Category: {{d.items.category}}</h6>
+                                            <h6 class="mb-0">{{d.items.nameitems}}</h6>
+                                        </div>
+                                        <div class="col-md-2 quantity-controls">
+                                            <button class="btn btn-link px-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input id="form1" min="0" name="quantity" value="1" type="number"
+                                                class="form-control form-control-sm" />
+                                            <button class="btn btn-link px-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="pt-5">
+                                        <h6 class="mb-0">
+                                            <a href="{% url 'items' %}" class="text-body">
+                                                <i class="fas fa-long-arrow-alt-left me-2"></i>Continue Shopping
+                                            </a>
+                                            <button onclick="add_to_cart({{d.items.id}})" type="button" class="btn btn-danger btn-block btn-lg">
+                                                Add to Cart 
+                                                <i class="bi bi-bag-fill"></i>
+                                            </button>
+                                            
+                                            <a href="{% url 'checkout' %}" type="button" class="btn btn-success btn-block btn-lg">Checkout  
+                                                <i class="bi bi-credit-card-2-back"></i>
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+
